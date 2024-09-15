@@ -3,19 +3,68 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:padding="8dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/splash_background"
     tools:context=".splash.SplashScreenActivity">
 
-    <TextView
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:id="@+id/textView"
+    <ImageView
+        android:padding="6dp"
+        android:id="@+id/sp_img"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test Splash Screen"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="350dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/splashimg" />
+
+    <TextView
+        android:id="@+id/sp_weatherTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:fontFamily="@font/ar"
+        android:gravity="center"
+        android:text="@string/weather_splash"
+        android:textColor="@color/white"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sp_img" />
+
+    <TextView
+        android:id="@+id/sp_forecastTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/verdanab"
+        android:gravity="center"
+        android:text="@string/forecasts_splash"
+        android:textColor="@color/base_color_three"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sp_weatherTV" />
+
+    <Button
+        android:id="@+id/sp_getStart_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="92dp"
+        android:background="@drawable/rounded_button"
+        android:text="@string/button_splash"
+        android:textColor="@color/base_color_one"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sp_forecastTV"
+        app:layout_constraintVertical_bias="0.611" />
 </androidx.constraintlayout.widget.ConstraintLayout>
