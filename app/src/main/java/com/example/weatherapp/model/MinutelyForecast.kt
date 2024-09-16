@@ -1,4 +1,6 @@
 package com.example.weatherapp.model
 
-class MinutelyForecast {
-}
+data class MinutelyForecast(
+    val dt: Long,
+    val precipitation: Int
+)
