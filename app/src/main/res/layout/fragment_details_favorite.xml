@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".map.view.MapFragment">
+    tools:context=".favorite.view.DetailsFavoriteFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="22sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_map_fragment" />
+        android:gravity="center"
+        android:text="@string/hello_details_fragment"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
 </FrameLayout>
