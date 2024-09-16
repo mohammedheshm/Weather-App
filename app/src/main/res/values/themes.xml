@@ -3,7 +3,26 @@
     <style name="Base.Theme.WeatherApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorControlHighlight">@color/base_color_two</item>
+
     </style>
 
     <style name="Theme.WeatherApp" parent="Base.Theme.WeatherApp" />
+
+
+    <!-- Active item text appearance -->
+    <style name="BottomNavActiveTextAppearance" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">14sp</item> <!-- Active text size -->
+        <item name="android:paddingTop">4dp</item> <!-- Add padding to move text down -->
+        <item name="android:textColor">@color/base_color_one</item> <!-- Active text color -->
+    </style>
+
+    <!-- Inactive item text appearance -->
+    <style name="BottomNavInactiveTextAppearance" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">12sp</item> <!-- Inactive text size -->
+        <item name="android:paddingTop">4dp</item> <!-- Add padding for inactive text as well -->
+        <item name="android:textColor">@color/base_color_two</item> <!-- Inactive text color -->
+    </style>
+
+
 </resources>
