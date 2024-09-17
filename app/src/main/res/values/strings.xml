@@ -23,4 +23,7 @@
     <string name="hello_favorite_fragment">Hello favorite Fragment</string>
     <string name="hello_main_activity">Hello Main Activity</string>
 
+    <!--Map-->
+    <string name="confirm">Confirm Location</string>
+
 </resources>

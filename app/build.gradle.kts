@@ -74,6 +74,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.0")
 
+    //OpenStreetMap
+    implementation ("org.osmdroid:osmdroid-android:6.1.18")
 
 
 }
