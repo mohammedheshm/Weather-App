@@ -39,7 +39,7 @@ class HomeHourlyAdapter(private val context: Context) :
         tempUnitFromPrefs = prefsSharedPreferences.getString(TEMP_UNIT_KEY, "No saved Temp unit")
         languageFromPrefs = prefsSharedPreferences.getString(LANG_KEY, "No Saved Language").toString()
 
-        val time = convertTimestampToDate(hourlyForecast.dt)
+        val time = timestampToDate(hourlyForecast.dt)
         val iconResId = convertIconCodeToResId(hourlyForecast.weather[0].icon)
         holder.timeHourly.text = time
         val tempDegree = hourlyForecast.temp.toString()
@@ -54,7 +54,7 @@ class HomeHourlyAdapter(private val context: Context) :
     }
 }
 
-private fun convertTimestampToDate(timeStamp: Long): String {
+private fun timestampToDate(timeStamp: Long): String {
     val simpleDateFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
     val date = Date(timeStamp * 1000)
     return simpleDateFormat.format(date)
