@@ -34,7 +34,7 @@
         android:elevation="8dp"
         app:itemIconSize="24dp"
         app:itemIconTint="@color/base_color_one"
-        app:itemRippleColor="@color/base_color_two"
+        app:itemRippleColor="@color/transparent_color"
         app:itemTextAppearanceActive="@style/BottomNavActiveTextAppearance"
         app:itemTextAppearanceInactive="@style/BottomNavInactiveTextAppearance"
         app:itemTextColor="@color/base_color_one"

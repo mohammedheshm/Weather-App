@@ -5,4 +5,5 @@
     <color name="base_color_one">#2C1E88</color>
     <color name="base_color_two">#9D52AC</color>
     <color name="base_color_three">#DDB130</color>
+    <color name="transparent_color">#80FFFFFF</color>
 </resources>
