@@ -23,6 +23,7 @@ import com.example.weatherapp.databinding.FragmentHomeBinding
 import com.example.weatherapp.db.WeatherLocalDataSourceImpl
 import com.example.weatherapp.home.viewmodel.HomeViewModel
 import com.example.weatherapp.home.viewmodel.HomeViewModelFactory
+import com.example.weatherapp.model.DailyForecast
 import com.example.weatherapp.model.WeatherResponse
 import com.example.weatherapp.model.repository.WeatherRepoImpl
 import com.example.weatherapp.network.ApiState
@@ -194,7 +195,7 @@ class HomeFragment : Fragment() {
 
                             is ApiState.Success -> {
                                 binding.progressBar.visibility = View.GONE
-                                updateHomeData(result.data)
+                                updateData(result.data)
                                 homeHourlyAdapter.submitList(result.data.hourly)
                                 homeDailyAdapter.submitList(result.data.daily)
 
@@ -230,7 +231,7 @@ class HomeFragment : Fragment() {
                 repeatOnLifecycle(Lifecycle.State.RESUMED) {
                     homeViewModel.currentWeatherFromDatabase.collectLatest { result ->
                         binding.progressBar.visibility = View.GONE
-                        updateHomeData(result)
+                        updateData(result)
                         homeHourlyAdapter.submitList(result.hourly)
                         homeDailyAdapter.submitList(result.daily)
 
@@ -292,8 +293,7 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun updateHomeData(weatherResponse: WeatherResponse) {
-
+    private fun updateData(weatherResponse: WeatherResponse) {
         val dateTime = weatherResponse.current.dt
         val tempDegree = weatherResponse.current.temp
         val main = weatherResponse.current.weather[0].main
@@ -304,12 +304,10 @@ class HomeFragment : Fragment() {
 
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-            val address =
-                geocoder.getAddress(
-                    latitudeFromPrefs?.toDouble()?.round(4) ?: 0.0,
-                    longitudeFromPrefs?.toDouble()?.round(4) ?: 0.0
-                )!!
-
+            val address = geocoder.getAddress(
+                latitudeFromPrefs?.toDouble()?.round(4) ?: 0.0,
+                longitudeFromPrefs?.toDouble()?.round(4) ?: 0.0
+            )!!
 
             val city = address.locality ?: address.extras.getString("sub-admin", "Unknown area")
             Log.d(TAG, "locality $city ")
@@ -319,25 +317,22 @@ class HomeFragment : Fragment() {
             binding.tvAddress.text = city
             val realDateTime = timestampToDate(dateTime)
             binding.tvDateTime.text = realDateTime
+
             when (tempUnitFromPrefs) {
                 KELVIN -> {
                     binding.tvTempDegree.text = "$tempDegree °K"
-                    binding.tvWindSpeedDesc.text = "${windSpeed}  meter/sec"
+                    binding.tvWindSpeedDesc.text = "${windSpeed} meter/sec"
                 }
-
                 FAHRENHEIT -> {
                     binding.tvTempDegree.text = "$tempDegree °F"
-                    binding.tvWindSpeedDesc.text = "${windSpeed}  miles/hour"
-
+                    binding.tvWindSpeedDesc.text = "${windSpeed} miles/hour"
                 }
-
                 else -> {
                     binding.tvTempDegree.text = "$tempDegree °C"
-                    binding.tvWindSpeedDesc.text = "${windSpeed}  meter/sec"
-
+                    binding.tvWindSpeedDesc.text = "${windSpeed} meter/sec"
                 }
-
             }
+
             binding.tvMain.text = main
             val humidityUnit = getString(R.string.humidity_unit)
             binding.tvHumidityDesc.text = "$humidity $humidityUnit"
@@ -346,9 +341,14 @@ class HomeFragment : Fragment() {
             val cloudUnit = getString(R.string.cloud_unit)
             binding.tvCloudsDesc.text = "$clouds $cloudUnit"
 
+            // Fetch and display 5-day forecast
+            val forecastList = weatherResponse.daily.take(5) // Get the first 5 days of the forecast
+            updateForecastAdapter(forecastList)
         }
-
-
+    }
+    private fun updateForecastAdapter(forecastList: List<DailyForecast>) {
+        val adapter = binding.rvDaily.adapter as? HomeDailyAdapter
+        adapter?.submitList(forecastList)
     }
 
 

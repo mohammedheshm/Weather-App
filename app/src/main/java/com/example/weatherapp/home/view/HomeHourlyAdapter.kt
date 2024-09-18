@@ -37,7 +37,8 @@ class HomeHourlyAdapter(private val context: Context) :
 
         prefsSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         tempUnitFromPrefs = prefsSharedPreferences.getString(TEMP_UNIT_KEY, "No saved Temp unit")
-        languageFromPrefs = prefsSharedPreferences.getString(LANG_KEY, "No Saved Language").toString()
+        languageFromPrefs =
+            prefsSharedPreferences.getString(LANG_KEY, "No Saved Language").toString()
 
         val time = timestampToDate(hourlyForecast.dt)
         val iconResId = convertIconCodeToResId(hourlyForecast.weather[0].icon)
@@ -52,6 +53,7 @@ class HomeHourlyAdapter(private val context: Context) :
 
         holder.iconHourly.setImageResource(iconResId)
     }
+
 }
 
 private fun timestampToDate(timeStamp: Long): String {
