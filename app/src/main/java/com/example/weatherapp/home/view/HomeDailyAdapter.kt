@@ -65,19 +65,19 @@ private fun convertTimestampToday(timestamp: Long): String {
 
 private fun convertIconCodeToResId(iconCode: String): Int {
     return when (iconCode) {
-        "01d" -> R.drawable.weathericon
-        "01n" -> R.drawable.moonicon
-        "02d" -> R.drawable.moonicon
-        "02n" -> R.drawable.moonicon
-        "03d", "03n" -> R.drawable.weathericon
-        "04d", "04n" -> R.drawable.moonicon
-        "09d", "09n" -> R.drawable.weathericon
-        "10d" -> R.drawable.moonicon
-        "10n" -> R.drawable.moonicon
-        "11d", "11n" -> R.drawable.moonicon
+        "01d" -> R.drawable.sunyicon
+        "01n" -> R.drawable.clearnight
+        "02d" -> R.drawable.cloudday
+        "02n" -> R.drawable.cloudnight
+        "03d", "03n" -> R.drawable.cloudday
+        "04d", "04n" -> R.drawable.cloudday
+        "09d", "09n" -> R.drawable.cloudnight
+        "10d" -> R.drawable.rainday
+        "10n" -> R.drawable.rainday
+        "11d", "11n" -> R.drawable.weathericon
         "13d", "13n" -> R.drawable.weathericon
-        "50d", "50n" -> R.drawable.moonicon
-        else -> R.drawable.moonicon // Default drawable
+        "50d", "50n" -> R.drawable.cloudday
+        else -> R.drawable.weathericon
     }
 }
 
