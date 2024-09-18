@@ -22,8 +22,26 @@
     <string name="hello_alert_fragment">Hello Alert Fragment</string>
     <string name="hello_favorite_fragment">Hello favorite Fragment</string>
     <string name="hello_main_activity">Hello Main Activity</string>
+    <string name="weather_icon">Weather Icon</string>
+
+    <!--Home Fragment-->
+    <string name="humidity_icon">Humidity Icon</string>
+    <string name="humidity">Humidity</string>
+    <string name="pressure_icon">Pressure Icon</string>
+    <string name="pressure">Pressure</string>
+    <string name="wind_speed_icon">Wind Speed Icon</string>
+    <string name="wind_speed">Wind Speed</string>
+    <string name="cloud_icon">Cloud Icon</string>
+    <string name="clouds">Clouds</string>
+    <string name="humidity_unit">%</string>
+    <string name="pressure_unit">hPa</string>
+    <string name="cloud_unit">%</string>
 
     <!--Map-->
     <string name="confirm">Confirm Location</string>
+
+    <!-- Main-->
+    <string name="permission_denied">Permission Denied! \n We need Location Permission to get your location</string>
+    <string name="allow_permission">Allow Permission</string>
 
 </resources>

@@ -24,7 +24,6 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_view"
         android:layout_width="0dp"
-        app:itemRippleColor="@color/base_color_two"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="6dp"
@@ -34,6 +33,7 @@
         android:elevation="8dp"
         app:itemIconSize="24dp"
         app:itemIconTint="@color/base_color_one"
+        app:itemRippleColor="@color/base_color_two"
         app:itemTextAppearanceActive="@style/BottomNavActiveTextAppearance"
         app:itemTextAppearanceInactive="@style/BottomNavInactiveTextAppearance"
         app:itemTextColor="@color/base_color_one"
@@ -46,20 +46,6 @@
         android:id="@+id/cl_denied_permissions"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/tv_need_permission"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_main_activity"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

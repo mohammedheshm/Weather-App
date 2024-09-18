@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.weatherapp.R
 
+const val FAVORITE_FRAGMENT = "favorite_fragment"
+
 class FavoriteFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

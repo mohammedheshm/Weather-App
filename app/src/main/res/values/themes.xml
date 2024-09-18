@@ -23,6 +23,7 @@
         <item name="android:paddingTop">4dp</item> <!-- Add padding for inactive text as well -->
         <item name="android:textColor">@color/base_color_two</item> <!-- Inactive text color -->
     </style>
-    
+
+
 
 </resources>

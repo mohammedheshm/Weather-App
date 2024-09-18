@@ -40,6 +40,8 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+
 }
 
 dependencies {
@@ -64,6 +66,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
 
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
 
     // Room
     implementation("androidx.room:room-ktx:2.6.1")
@@ -74,8 +79,23 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.0")
 
-    //OpenStreetMap
-    implementation ("org.osmdroid:osmdroid-android:6.1.18")
+//    //OpenStreetMap
+//    implementation ("org.osmdroid:osmdroid-android:6.1.18")
+//
+//    //Google Services
+//    implementation("com.google.android.gms:play-services-location:21.2.0")
 
+    implementation("com.google.android.gms:play-services-location:21.2.0")
+    implementation("org.osmdroid:osmdroid-android:6.1.18")
+    implementation("org.osmdroid:osmdroid-wms:6.1.10")
+
+    implementation("com.jakewharton.timber:timber:5.0.1")
+
+
+    //Weather View
+    implementation("com.github.MatteoBattilana:WeatherView:3.0.0")
+
+    //Preferences Fragment
+    implementation("androidx.preference:preference-ktx:1.2.1")
 
 }
