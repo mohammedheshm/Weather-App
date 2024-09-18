@@ -21,7 +21,7 @@
         android:backgroundTint="@color/base_color_three"
         android:text="@string/confirm"
         android:textColor="@color/base_color_one"
-        android:textSize="28sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
