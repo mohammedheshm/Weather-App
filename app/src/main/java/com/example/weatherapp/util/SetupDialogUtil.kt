@@ -21,7 +21,7 @@ const val HOME_FRAGMENT = "home_fragment"
 const val GPS = "GPS"
 const val LOCATION = "Location"
 
-class InitialSetupDialog : DialogFragment() {
+class SetupDialogUtil : DialogFragment() {
 
     private val TAG = "InitialSetupDialog"
 

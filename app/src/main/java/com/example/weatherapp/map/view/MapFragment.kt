@@ -16,6 +16,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.databinding.FragmentMapBinding
 import com.example.weatherapp.db.WeatherLocalDataSourceImpl
 import com.example.weatherapp.favorite.view.FAVORITE_FRAGMENT
+import com.example.weatherapp.map.view.MapFragmentArgs
 import com.example.weatherapp.map.viewmodel.MapViewModel
 import com.example.weatherapp.map.viewmodel.MapViewModelFactory
 import com.example.weatherapp.model.FavoriteWeather
@@ -144,11 +145,11 @@ class MapFragment : Fragment(), MapEventsReceiver {
 
             }
 
-            Log.d(TAG, "Location retrieved from Geocoder: $city ")
+            Log.d(TAG, "city from geocoder: $city ")
 
             val mapArgs = MapFragmentArgs.fromBundle(requireArguments())
             originFragment = mapArgs.originFragment
-            Log.d(TAG, "Source fragment: $originFragment ")
+            Log.d(TAG, "origin fragment: $originFragment ")
 
             binding.btnConfirm.setOnClickListener {
                 if (originFragment == HOME_FRAGMENT) {

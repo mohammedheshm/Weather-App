@@ -146,6 +146,39 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @SuppressLint("MissingPermission")
+    fun getFreshLocation() {
+
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
+        fusedLocationProviderClient.requestLocationUpdates(
+            com.google.android.gms.location.LocationRequest.Builder(0).apply {
+                setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+            }.build(),
+            object : LocationCallback() {
+
+                override fun onLocationResult(locationResult: LocationResult) {
+                    super.onLocationResult(locationResult)
+
+                    val location = locationResult.lastLocation
+
+                    val longitude = location?.longitude.toString()
+                    val latitude = location?.latitude.toString()
+
+                    locationSharedPreferences.edit().putString(LATITUDE, latitude).apply()
+                    locationSharedPreferences.edit().putString(LONGITUDE, longitude).apply()
+
+                    fetchWeatherData()
+
+                    fusedLocationProviderClient.removeLocationUpdates(this)
+
+                }
+            },
+            Looper.myLooper()
+
+
+        )
+    }
 
     private fun setupDataObserver() {
 
@@ -319,40 +352,6 @@ class HomeFragment : Fragment() {
     }
 
 
-    @SuppressLint("MissingPermission")
-    fun getFreshLocation() {
-
-        fusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(requireActivity())
-        fusedLocationProviderClient.requestLocationUpdates(
-            com.google.android.gms.location.LocationRequest.Builder(0).apply {
-                setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-            }.build(),
-            object : LocationCallback() {
-
-                override fun onLocationResult(locationResult: LocationResult) {
-                    super.onLocationResult(locationResult)
-
-                    val location = locationResult.lastLocation
-
-                    val longitude = location?.longitude.toString()
-                    val latitude = location?.latitude.toString()
-
-                    locationSharedPreferences.edit().putString(LATITUDE, latitude).apply()
-                    locationSharedPreferences.edit().putString(LONGITUDE, longitude).apply()
-
-                    fetchWeatherData()
-
-                    fusedLocationProviderClient.removeLocationUpdates(this)
-
-                }
-            },
-            Looper.myLooper()
-
-
-        )
-    }
-
     private fun timestampToDate(timeStamp: Long): String {
         val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault())
         val date = Date(timeStamp * 1000)
@@ -361,22 +360,18 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
         Log.d(TAG, "onStart: ")
     }
 
     override fun onPause() {
         super.onPause()
-
         Log.d(TAG, "onPause: ")
     }
 
 
     override fun onResume() {
         super.onResume()
-
         fetchWeatherData()
-
     }
 
 }

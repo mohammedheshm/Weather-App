@@ -17,11 +17,11 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.example.weatherapp.databinding.ActivityMainBinding
-import com.example.weatherapp.util.PermissionChecksUtil
-import com.example.weatherapp.util.PermissionChecksUtil.enableLocationService
 import com.example.weatherapp.util.INITIAL_CHOICE
 import com.example.weatherapp.util.INITIAL_PREFS
-import com.example.weatherapp.util.InitialSetupDialog
+import com.example.weatherapp.util.PermissionChecksUtil
+import com.example.weatherapp.util.PermissionChecksUtil.enableLocationService
+import com.example.weatherapp.util.SetupDialogUtil
 
 const val REQUEST_CODE = 2005
 
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private lateinit var fragment: FragmentContainerView
-    lateinit var initialSetupDialog: InitialSetupDialog
+    lateinit var setupDialog: SetupDialogUtil
 
     // lateinit var progressBar: ProgressBar
     private lateinit var initialSharedPreferences: SharedPreferences
@@ -52,9 +52,7 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.clDeniedPermissions.visibility = View.GONE
-
-
-        initMainActivity()
+        initSetup()
 
 
     }
@@ -64,9 +62,9 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         Log.d(TAG, "onStart: ")
 
-        if (!::initialSetupDialog.isInitialized) {
-            initialSetupDialog = InitialSetupDialog()
-            initialSetupDialog.setPositiveButton(DialogInterface.OnClickListener { dialogInterface, _ ->
+        if (!::setupDialog.isInitialized) {
+            setupDialog = SetupDialogUtil()
+            setupDialog.setPositiveButton(DialogInterface.OnClickListener { dialogInterface, _ ->
                 if (PermissionChecksUtil.isLocationIsEnabled(this)) {
                     Log.d(TAG, "First initMainActivity: 11111111111 ")
                     binding.clDeniedPermissions.visibility = View.GONE
@@ -77,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
             if (PermissionChecksUtil.checkPermission(this)) {
                 if (!isInitialSetupDone()) {
-                    initialSetupDialog.show(supportFragmentManager, "InitialSetupDialog")
+                    setupDialog.show(supportFragmentManager, "InitialSetupDialog")
                 }
             } else {
                 ActivityCompat.requestPermissions(
@@ -91,28 +89,11 @@ class MainActivity : AppCompatActivity() {
         } else if (isPermissionGranted && isInitialSetupDone()) {
             //progressBar.visibility = View.VISIBLE
             Log.d(TAG, "Second initMainActivity: 222222222 ")
-            initMainActivity()
+            initSetup()
 
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "onResume: ")
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        Log.d(TAG, "onPause: ")
-
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        Log.d(TAG, "onStop: ")
-    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -126,17 +107,16 @@ class MainActivity : AppCompatActivity() {
 
             if (locationGranted && !isInitialSetupDone()) {
                 isPermissionGranted = true
-                initialSetupDialog.show(supportFragmentManager, "InitialSetupDialog")
+                setupDialog.show(supportFragmentManager, "InitialSetupDialog")
 
             } else {
                 binding.clDeniedPermissions.visibility = View.VISIBLE
-
             }
         }
 
     }
 
-    private fun initMainActivity() {
+    private fun initSetup() {
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
@@ -167,6 +147,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun isInitialSetupDone(): Boolean {
         return initialSharedPreferences.contains(INITIAL_CHOICE)
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume: ")
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        Log.d(TAG, "onPause: ")
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        Log.d(TAG, "onStop: ")
     }
 
 
