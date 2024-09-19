@@ -44,4 +44,8 @@
     <string name="permission_denied">Permission Denied! \n We need Location Permission to get your location</string>
     <string name="allow_permission">Allow Permission</string>
 
+    <!--Alert-->
+    <string name="add_alert">Add Alert</string>
+    <string name="delete_alert">Delete Alert</string>
+
 </resources>
