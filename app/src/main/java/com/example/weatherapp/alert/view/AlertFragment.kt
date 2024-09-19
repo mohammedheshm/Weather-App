@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.weatherapp.R
 
+const val ALERT_TYPE = "alarm_type"
+
 class AlertFragment : Fragment() {
 
 
