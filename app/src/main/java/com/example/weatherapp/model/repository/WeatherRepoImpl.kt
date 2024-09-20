@@ -20,7 +20,6 @@ class WeatherRepoImpl constructor(
 
     private val TAG = "WeatherRepoImpl"
 
-
     companion object {
         private var instance: WeatherRepoImpl? = null
         fun getInstance(
@@ -88,27 +87,31 @@ class WeatherRepoImpl constructor(
         return weatherLocalDataSource.getAllAlerts()
     }
 
-    override fun getAllFavorites(): Flow<List<FavoriteWeather>> {
-        return weatherLocalDataSource.getAllFavorites()
-    }
-
     override suspend fun insertAlert(alert: Alert?) {
         weatherLocalDataSource.insertAlert(alert)
-    }
-
-    override suspend fun insertFavorite(favoriteWeather: FavoriteWeather) {
-        weatherLocalDataSource.insertFavorite(favoriteWeather)
     }
 
     override suspend fun deleteAlert(alert: Alert?) {
         weatherLocalDataSource.deleteAlert(alert)
     }
 
-    override suspend fun deleteFavorite(favoriteWeather: FavoriteWeather) {
-        weatherLocalDataSource.deleteFavorite(favoriteWeather)
+
+    override fun getAllFavorites(): Flow<List<FavoriteWeather>> {
+        return weatherLocalDataSource.getAllFavorites()
     }
 
     override fun getFavoriteById(favoriteId: Int): Flow<FavoriteWeather> {
         return weatherLocalDataSource.getFavoriteById(favoriteId)
     }
+
+    override suspend fun insertFavorite(favoriteWeather: FavoriteWeather) {
+        weatherLocalDataSource.insertFavorite(favoriteWeather)
+    }
+
+
+    override suspend fun deleteFavorite(favoriteWeather: FavoriteWeather) {
+        weatherLocalDataSource.deleteFavorite(favoriteWeather)
+    }
+
+
 }

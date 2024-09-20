@@ -16,29 +16,28 @@ interface WeatherDao {
 
 
     @Query("SELECT * from weather_table")
-    fun getWeatherResponse() : Flow<WeatherResponse>
+    fun getWeatherResponse(): Flow<WeatherResponse>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertWeatherResponse(weatherResponse: WeatherResponse)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertAlert(alert: Alert)
-
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertFavorite(favoriteWeather: FavoriteWeather)
-
-    @Query("SELECT * from favorite_table")
-    fun getAllFavorites() : Flow<List<FavoriteWeather>>
-
-    @Query("SELECT * FROM favorite_table WHERE fav_id = :favoriteId")
-    fun getFavoriteById(favoriteId : Int): Flow<FavoriteWeather>
-
     @Query("SELECT * from alert_table")
     fun getAlerts(): Flow<List<Alert>>
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAlert(alert: Alert)
+
     @Delete
     suspend fun deleteAlert(alert: Alert)
+
+    @Query("SELECT * FROM favorite_table WHERE fav_id = :favoriteId")
+    fun getFavoriteById(favoriteId: Int): Flow<FavoriteWeather>
+
+    @Query("SELECT * from favorite_table")
+    fun getAllFavorites(): Flow<List<FavoriteWeather>>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertFavorite(favoriteWeather: FavoriteWeather)
 
     @Delete
     suspend fun deleteFavorite(favoriteWeather: FavoriteWeather)
