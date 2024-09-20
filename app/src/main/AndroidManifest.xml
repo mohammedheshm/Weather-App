@@ -32,11 +32,10 @@
                 android:name="autoStoreLocales"
                 android:value="true" />
         </service>
-        <service
-            android:name=".alert.view.DialogService"
-            android:exported="false">
 
-        </service>
+        <service
+            android:name=".alert.view.AlarmAndNotificationService"
+            android:exported="false"></service>
 
         <activity
             android:name=".splash.SplashScreenActivity"
@@ -54,6 +53,9 @@
 
 
         </activity>
+
+        <receiver android:name=".alert.view.NotificationReceiver" />
+
     </application>
 
 </manifest>

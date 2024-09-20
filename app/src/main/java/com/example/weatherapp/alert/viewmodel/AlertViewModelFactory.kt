@@ -11,7 +11,7 @@ class AlertViewModelFactory(private val _repo: WeatherRepo) : ViewModelProvider.
             AlertViewModel(_repo) as T
         } else {
 
-            throw IllegalArgumentException("AlertViewModel class could not be found")
+            throw IllegalArgumentException("AlertViewModel Class Not Found")
         }
     }
 

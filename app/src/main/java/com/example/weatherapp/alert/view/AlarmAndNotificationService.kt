@@ -36,24 +36,26 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DialogService : Service() {
+class AlarmAndNotificationService : Service() {
 
     private val TAG = "DialogService"
-    private var alertType: String? = ""
+
+    private lateinit var windowManager: WindowManager
+    private lateinit var floatingView: ConstraintLayout
+    private var desc: String? = ""
     private lateinit var _repo: WeatherRepo
+    private lateinit var tvDesc: TextView
+    private var alertType: String? = ""
+    private lateinit var locationSharedPreferences: SharedPreferences
+    private lateinit var prefsSharedPreferences: SharedPreferences
     private var latitudeFromPrefs: String? = null
     private var longitudeFromPrefs: String? = null
     private var tempUnitFromPrefs: String? = ""
     private var languageFromPrefs: String = ""
-    private lateinit var locationSharedPreferences: SharedPreferences
-    private lateinit var prefsSharedPreferences: SharedPreferences
-    private var description: String? = ""
 
-    override fun onBind(p0: Intent?): IBinder? {
-
+    override fun onBind(intent: Intent?): IBinder? {
         return null
     }
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -64,12 +66,14 @@ class DialogService : Service() {
 
         if (alertType == "Alarm") {
 
-            //i will Hnadle This Function to Show Dialog Of Alert on the Screen
+            showAlarmDialog()
+
         } else if (alertType == "Notification") {
 
 
             showNotification(this)
         }
+
 
         return START_STICKY
     }
@@ -102,6 +106,7 @@ class DialogService : Service() {
 
     }
 
+
     private fun showNotification(context: Context) {
 
         CoroutineScope(Dispatchers.Main).launch {
@@ -112,26 +117,26 @@ class DialogService : Service() {
                 tempUnitFromPrefs.toString()
             )
                 .collectLatest { result ->
-                    val greatWeather = "Great Weather Today, Enjoy!"
-                    description =
+                    val greatWeather = "Enjoy The Nice Weather!"
+                    desc =
                         if (result.alerts.isNullOrEmpty() || result.alerts?.get(0)?.description.isNullOrEmpty()) {
                             greatWeather
                         } else {
                             result.alerts?.get(0)?.description ?: greatWeather
                         }
-                    Log.d(TAG, "Notification description: $description ")
+                    Log.d(TAG, "description from notification: $desc ")
                 }
 
             withContext(Dispatchers.Main) {
 
-                val bigTextStyle = NotificationCompat.BigTextStyle().bigText(description)
+                val bigTextStyle = NotificationCompat.BigTextStyle().bigText(desc)
                 val appIntent = Intent(context, MainActivity::class.java)
                 val pendingIntent =
                     PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_IMMUTABLE)
                 val notification = NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                     .setContentTitle("Alert")
-                    .setContentText(description)
+                    .setContentText(desc)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setAutoCancel(true)
                     .setStyle(bigTextStyle)
@@ -148,5 +153,93 @@ class DialogService : Service() {
 
     }
 
+    private fun showAlarmDialog() {
+
+        floatingView =
+            LayoutInflater.from(this)
+                .inflate(R.layout.alert_screen_item, null) as ConstraintLayout
+        tvDesc = floatingView.findViewById<TextView>(R.id.textView)
+        _repo = WeatherRepoImpl.getInstance(
+            WeatherRemoteDataSourceImpl.getInstance(),
+            WeatherLocalDataSourceImpl(this)
+        )
+
+
+        CoroutineScope(Dispatchers.Main).launch {
+            _repo.getCurrentWeatherFromRemote(
+                latitudeFromPrefs.toString(),
+                longitudeFromPrefs.toString(),
+                languageFromPrefs,
+                tempUnitFromPrefs.toString()
+            )
+                .collectLatest { result ->
+                    val greatWeather = "Enjoy The Nice Weather!"
+                    desc =
+                        if (result.alerts.isNullOrEmpty() || result.alerts?.get(0)?.description.isNullOrEmpty()) {
+                            greatWeather
+                        } else {
+                            result.alerts?.get(0)?.description ?: greatWeather
+                        }
+                    tvDesc.text = desc
+                    Log.d(TAG, "description: $desc ")
+                }
+        }
+
+
+        val params = WindowManager.LayoutParams(
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            PixelFormat.TRANSLUCENT
+        )
+
+        windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        windowManager.addView(floatingView, params)
+
+
+        floatingView.viewTreeObserver.addOnGlobalLayoutListener {
+            floatingView.viewTreeObserver.removeOnGlobalLayoutListener {}
+
+
+            val xPos = (getScreenWidth() - floatingView.width) / 2
+            val yPos = (getScreenHeight() - floatingView.height) / 2
+
+            params.x = xPos
+            params.y = yPos
+        }
+
+        floatingView.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                stopSelf()
+                return@setOnTouchListener true
+            }
+            false
+        }
+
+    }
+
+    private fun getScreenWidth(): Int {
+
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val width = displayMetrics.widthPixels
+        return width
+    }
+
+    private fun getScreenHeight(): Int {
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val height = displayMetrics.widthPixels
+        return height
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (floatingView != null) {
+            windowManager.removeView(floatingView)
+
+        }
+    }
 
 }

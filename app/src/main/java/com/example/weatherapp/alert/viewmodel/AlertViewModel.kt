@@ -14,8 +14,10 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class AlertViewModel(private val _repo: WeatherRepo) : ViewModel() {
 
+class AlertViewModel (private val _repo: WeatherRepo) : ViewModel() {
+
+    private val TAG = "AlertViewModel"
 
     private val _alertWeather: MutableStateFlow<ApiState> = MutableStateFlow(ApiState.Loading)
     val alertWeather = _alertWeather.asStateFlow()
@@ -23,18 +25,20 @@ class AlertViewModel(private val _repo: WeatherRepo) : ViewModel() {
     private val _allAlerts: MutableStateFlow<List<Alert>> = MutableStateFlow(emptyList<Alert>())
     val allAlerts: StateFlow<List<Alert>> = _allAlerts.asStateFlow()
 
-    private val TAG = "AlertViewModel"
-
 
     init {
         getAllAlerts()
     }
 
+    fun setAlertLocation(lat: String, lon: String, language: String = "", units: String = "") {
+        getAlertWeather(lat, lon, language, units)
+    }
+
 
     fun getAlertWeather(
-        lat: String,
-        lon: String,
-        language: String = "",
+        lat: String ,
+        lon: String  ,
+        language: String = "" ,
         units: String = ""
     ) {
 
@@ -56,19 +60,7 @@ class AlertViewModel(private val _repo: WeatherRepo) : ViewModel() {
 
     }
 
-    fun setAlertLocation(lat: String, lon: String, language: String = "", units: String = "") {
-        getAlertWeather(lat, lon, language, units)
-    }
-
-    fun getAllAlerts() {
-        viewModelScope.launch {
-            _repo.getAllAlerts().collectLatest {
-                _allAlerts.value = it
-            }
-        }
-    }
-
-    fun insertAlert(alert: Alert?) {
+    fun insertAlert(alert: Alert?){
 
         viewModelScope.launch {
             _repo.insertAlert(alert)
@@ -76,13 +68,23 @@ class AlertViewModel(private val _repo: WeatherRepo) : ViewModel() {
 
     }
 
-    fun deleteAlert(alert: Alert?) {
+    fun deleteAlert(alert: Alert?){
 
         viewModelScope.launch {
             _repo.deleteAlert(alert)
         }
 
     }
+
+
+    fun getAllAlerts() {
+        viewModelScope.launch {
+            _repo.getAllAlerts().collectLatest{
+                _allAlerts.value = it
+            }
+        }
+    }
+
 
 
 }
