@@ -46,6 +46,7 @@
 
     <!--Alert-->
     <string name="add_alert">Add Alert</string>
+    <string name="add_fav">Add Favorite</string>
     <string name="delete_alert">Delete Alert</string>
     <string name="alert_screen_item">Shown Alarm of Alert on screen</string>
 

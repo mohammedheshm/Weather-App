@@ -29,7 +29,6 @@ class FavoriteViewModel(private val _repo: WeatherRepo) : ViewModel() {
     )
     val favoriteWeatherById = _favoriteWeatherById.asStateFlow()
 
-
     private val _favWeatherDetails: MutableStateFlow<ApiState> = MutableStateFlow(ApiState.Loading)
     val favWeatherDetails: StateFlow<ApiState> = _favWeatherDetails
 
