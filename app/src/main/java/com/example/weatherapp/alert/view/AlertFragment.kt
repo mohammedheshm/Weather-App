@@ -20,6 +20,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
@@ -53,8 +54,9 @@ const val ALERT_TYPE = "alarm_type"
 class AlertFragment : Fragment(), DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener, OnAlertItemClick {
 
-    private val TAG = "AlertFragment"
 
+    private lateinit var placeholderImageView: ImageView  // Placeholder ImageView
+    private val TAG = "AlertFragment"
     private var day: Int = 0
     private var month: Int = 0
     private var year: Int = 0
@@ -116,6 +118,8 @@ class AlertFragment : Fragment(), DatePickerDialog.OnDateSetListener,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        placeholderImageView = binding.ivPlaceholder
+
         locationSharedPreferences =
             requireContext().getSharedPreferences(LOCATION, Context.MODE_PRIVATE)
 
@@ -139,8 +143,10 @@ class AlertFragment : Fragment(), DatePickerDialog.OnDateSetListener,
             ViewModelProvider(this, alertViewModelFactory).get(AlertViewModel::class.java)
 
         lifecycleScope.launch {
-            alertViewModel.allAlerts.collect {
-                alertAdapter.submitList(it)
+            alertViewModel.allAlerts.collect { alerts ->
+                alertAdapter.submitList(alerts)
+                updatePlaceholderVisibility(alerts)
+
             }
 
         }
@@ -148,6 +154,16 @@ class AlertFragment : Fragment(), DatePickerDialog.OnDateSetListener,
 
         pickDate()
 
+    }
+
+    private fun updatePlaceholderVisibility(alerts: List<Alert>) {
+        if (alerts.isEmpty()) {
+            placeholderImageView.visibility = View.VISIBLE
+            binding.rvAlerts.visibility = View.GONE
+        } else {
+            placeholderImageView.visibility = View.GONE
+            binding.rvAlerts.visibility = View.VISIBLE
+        }
     }
 
 
