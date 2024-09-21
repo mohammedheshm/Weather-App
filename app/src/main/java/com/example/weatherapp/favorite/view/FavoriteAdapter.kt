@@ -43,7 +43,6 @@ class FavoriteAdapter(
 
 }
 
-
 class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     val favoriteAddress: TextView = itemView.findViewById(R.id.tv_favorite_address)

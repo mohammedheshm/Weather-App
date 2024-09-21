@@ -54,7 +54,15 @@ class FavoriteViewModel(private val _repo: WeatherRepo) : ViewModel() {
 
     }
 
+    fun getFavoriteById(favoriteId: Int) {
+        viewModelScope.launch {
+            _repo.getFavoriteById(favoriteId).collect {
+                _favoriteWeatherById.value = it
 
+            }
+        }
+
+    }
 
     fun getFavoriteWeatherDetailsFromRemote(
         lat: String,
@@ -73,8 +81,6 @@ class FavoriteViewModel(private val _repo: WeatherRepo) : ViewModel() {
                     _favWeatherDetails.value = ApiState.Success(data)
                     Log.d(TAG, "Favorite Details: ${data}")
                 }
-
-
 
 
         }
