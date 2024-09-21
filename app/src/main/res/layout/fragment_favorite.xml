@@ -7,7 +7,6 @@
     tools:context=".favorite.view.FavoriteFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        tools:listitem="@layout/favorite_item"
         android:id="@+id/rv_favorites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +14,8 @@
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/favorite_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_fav"
@@ -26,9 +26,22 @@
         android:backgroundTint="@color/white"
         android:contentDescription="@string/add_fav"
         android:src="@drawable/favoion"
-        app:maxImageSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="30sp" />
+
+    <ImageView
+        android:id="@+id/img_empty_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/splashimg"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/fab_add_fav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ProgressBar
         android:id="@+id/progress_Bar_favorite"

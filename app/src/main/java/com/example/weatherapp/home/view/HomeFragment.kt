@@ -95,6 +95,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d(TAG, "onViewCreated: ")
+
         binding.cvDetails.visibility = View.GONE
         binding.cvCurrentWeather.visibility = View.GONE
 
@@ -323,10 +324,12 @@ class HomeFragment : Fragment() {
                     binding.tvTempDegree.text = "$tempDegree °K"
                     binding.tvWindSpeedDesc.text = "${windSpeed} meter/sec"
                 }
+
                 FAHRENHEIT -> {
                     binding.tvTempDegree.text = "$tempDegree °F"
                     binding.tvWindSpeedDesc.text = "${windSpeed} miles/hour"
                 }
+
                 else -> {
                     binding.tvTempDegree.text = "$tempDegree °C"
                     binding.tvWindSpeedDesc.text = "${windSpeed} meter/sec"
@@ -346,11 +349,11 @@ class HomeFragment : Fragment() {
             updateForecastAdapter(forecastList)
         }
     }
+
     private fun updateForecastAdapter(forecastList: List<DailyForecast>) {
         val adapter = binding.rvDaily.adapter as? HomeDailyAdapter
         adapter?.submitList(forecastList)
     }
-
 
     private fun timestampToDate(timeStamp: Long): String {
         val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault())

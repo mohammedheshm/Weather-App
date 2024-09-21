@@ -64,6 +64,13 @@ class FavoriteViewModel(private val _repo: WeatherRepo) : ViewModel() {
 
     }
 
+
+    fun deleteFavorite(favoriteWeather: FavoriteWeather) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _repo.deleteFavorite(favoriteWeather)
+        }
+    }
+
     fun getFavoriteWeatherDetailsFromRemote(
         lat: String,
         lon: String,
