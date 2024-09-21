@@ -29,3 +29,4 @@
     </fragment>
     <include app:graph="@navigation/home_graph" />
 </navigation>
+
