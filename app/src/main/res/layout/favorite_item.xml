@@ -2,11 +2,11 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv_favorite"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_marginTop="8dp"
-
     android:backgroundTint="@color/base_color_two"
     app:cardCornerRadius="18dp">
 
@@ -18,45 +18,20 @@
 
 
         <TextView
-            android:id="@+id/tv_alert_address"
+            android:id="@+id/tv_favorite_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:padding="2dp"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Beni Suef" />
 
-
-        <TextView
-            android:id="@+id/tv_alert_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.578"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.354"
-            tools:text="09/29/2024" />
-
-        <TextView
-            android:id="@+id/tv_alert_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            app:layout_constraintHorizontal_bias="0.521"
-            app:layout_constraintLeft_toLeftOf="@id/tv_alert_date"
-            app:layout_constraintRight_toRightOf="@id/tv_alert_date"
-            app:layout_constraintTop_toBottomOf="@id/tv_alert_date"
-            tools:text="9.00 PM" />
-
         <ImageView
-            android:id="@+id/iv_delete_alert"
+            android:id="@+id/iv_delete_favorite"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginEnd="8dp"
