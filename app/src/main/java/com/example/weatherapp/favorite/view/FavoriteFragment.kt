@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -117,27 +119,34 @@ class FavoriteFragment : Fragment(), OnFavoriteItemClick {
         findNavController().navigate(action)
     }
 
-    override fun deleteFavorite(favoriteWeather: FavoriteWeather) {
 
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle("Delete Item")
-        builder.setMessage("Are you sure you want to delete this item?")
-        builder.setPositiveButton("OK") { dialogInterface: DialogInterface, _: Int ->
+    override fun deleteFavorite(favoriteWeather: FavoriteWeather) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_delete_alert, null)
+
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        dialogBuilder.setView(dialogView)
+
+        val dialogTitle: TextView = dialogView.findViewById(R.id.dialog_title)
+        val buttonOk: Button = dialogView.findViewById(R.id.button_ok)
+        val buttonCancel: Button = dialogView.findViewById(R.id.button_cancel)
+
+        dialogTitle.text = "Are you sure delete this item"
+
+        val dialog = dialogBuilder.create()
+
+        buttonOk.setOnClickListener {
             lifecycleScope.launch {
                 favoriteViewModel.deleteFavorite(favoriteWeather)
-
             }
-            Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show()
-            dialogInterface.dismiss()
+            Toast.makeText(requireContext(), "Item deleted", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
         }
-        builder.setNegativeButton("Cancel") { dialogInterface: DialogInterface, _: Int ->
-            dialogInterface.dismiss()
+
+        buttonCancel.setOnClickListener {
+            dialog.dismiss()
         }
-        val dialog = builder.create()
         dialog.show()
-
     }
-
 
 }
 
