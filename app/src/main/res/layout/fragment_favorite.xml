@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/splashimg"
+        android:src="@drawable/favplacholderimg"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/fab_add_fav"
         app:layout_constraintEnd_toEndOf="parent"
