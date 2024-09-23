@@ -1,0 +1,99 @@
+<resources>
+    <!--Splash-->
+    <string name="app_name">تطبيق الطقس</string>
+    <string name="weather_splash">الطقس</string>
+    <string name="forecasts_splash">التوقعات</string>
+    <string name="button_splash">ابدأ</string>
+
+    <!--Menu-->
+    <string name="home">الرئيسية</string>
+    <string name="alert">تنبيه</string>
+    <string name="favorite">المفضلة</string>
+    <string name="settings">الإعدادات</string>
+
+    <string name="hello_blank_fragment">مرحبًا شريحة فارغة</string>
+    <string name="hello_map_fragment">مرحبًا شريحة الخريطة</string>
+    <string name="hello_details_fragment">مرحبًا شريحة التفاصيل</string>
+    <string name="hello_home_fragment">مرحبًا شريحة الرئيسية</string>
+    <string name="hello_settings_fragment">مرحبًا شريحة الإعدادات</string>
+    <string name="hello_settings_fragment1">مرحبًا شريحة الإعدادات</string>
+    <string name="hello_alert_fragment">مرحبًا شريحة التنبيه</string>
+    <string name="hello_favorite_fragment">مرحبًا شريحة المفضلة</string>
+    <string name="hello_main_activity">مرحبًا النشاط الرئيسي</string>
+    <string name="weather_icon" translatable="false">رمز الطقس</string>
+
+    <!--Home Fragment-->
+    <string name="humidity_icon" translatable="false">رمز الرطوبة</string>
+    <string name="humidity">رطوبة</string>
+    <string name="pressure_icon" translatable="false">رمز الضغط</string>
+    <string name="pressure" translatable="false">ضغط</string>
+    <string name="wind_speed_icon" translatable="false">رمز سرعة الرياح</string>
+    <string name="wind_speed" translatable="false">سرعة الرياح</string>
+    <string name="cloud_icon" translatable="false">رمز الغيوم</string>
+    <string name="clouds" translatable="false">الغيوم</string>
+    <string name="humidity_unit" translatable="false">%</string>
+    <string name="pressure_unit" translatable="false">هكتوباسكال</string>
+    <string name="cloud_unit" translatable="false">%</string>
+
+    <!--Map-->
+    <string name="confirm" translatable="false">تأكيد الموقع</string>
+
+    <!-- Main-->
+    <string name="permission_denied" translatable="false">تم رفض الإذن! \n نحتاج إلى إذن الموقع للحصول على موقعك</string>
+    <string name="allow_permission" translatable="false">السماح بالإذن</string>
+
+    <!--Alert-->
+    <string name="add_alert" translatable="false">إضافة تنبيه</string>
+    <string name="add_fav" translatable="false">إضافة إلى المفضلة</string>
+    <string name="delete_fav" translatable="false">حذف من المفضلة</string>
+    <string name="delete_alert" translatable="false">حذف التنبيه</string>
+    <string name="alert_screen_item" translatable="false">إظهار تنبيه التنبيه على الشاشة</string>
+
+    <!--Settings-->
+    <string name="location_preferences" translatable="false">كفاءة الموقع</string>
+    <string name="get_location_by_gps" translatable="false">الحصول على الموقع عن طريق GPS</string>
+    <string name="enable_to_get_location_automatically_using_gps" translatable="false">تمكين استرداد الموقع تلقائيًا باستخدام GPS</string>
+    <string name="choose_location_from_map" translatable="false">اختر الموقع من الخريطة</string>
+    <string name="tap_to_choose_a_specific_location_from_the_map" translatable="false">انقر لتحديد موقع معين على الخريطة</string>
+    <string name="temperature_unit_preferences" translatable="false">كفاءة وحدة درجة الحرارة</string>
+    <string name="temperature_unit" translatable="false">وحدة درجة الحرارة</string>
+    <string name="choose_your_preferred_temperature_unit" translatable="false">اختر وحدة درجة الحرارة التي تفضلها</string>
+    <string name="wind_speed_unit" translatable="false">وحدة سرعة الرياح</string>
+    <string name="choose_your_preferred_wind_speed_unit" translatable="false">اختر وحدة سرعة الرياح التي تفضلها</string>
+    <string name="language_preferences" translatable="false">كفاءة اللغة</string>
+    <string name="language" translatable="false">اللغة</string>
+    <string name="choose_your_preferred_language" translatable="false">اختر اللغة التي تفضلها</string>
+
+
+    <string-array name="temp_unit_entries">
+        <item>كلفن</item>
+        <item>سيلسيوس</item>
+        <item>فهرنهايت</item>
+    </string-array>
+    <string-array name="temp_unit_values">
+        <item>kelvin</item>
+        <item>celsius</item>
+        <item>fahrenheit</item>
+    </string-array>
+
+    <string-array name="wind_unit_entries">
+        <item>متر في الثانية</item>
+        <item>ميل في الساعة</item>
+    </string-array>
+    <string-array name="wind_unit_values">
+        <item>meters_per_second</item>
+        <item>miles_per_hour</item>
+    </string-array>
+
+    <string-array name="language_entries">
+        <item>العربية</item>
+        <item>الإنجليزية</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>ar</item>
+        <item>en</item>
+    </string-array>
+
+
+</resources>

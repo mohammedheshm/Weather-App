@@ -21,33 +21,52 @@
     <string name="hello_alert_fragment">Hello Alert Fragment</string>
     <string name="hello_favorite_fragment">Hello favorite Fragment</string>
     <string name="hello_main_activity">Hello Main Activity</string>
-    <string name="weather_icon">Weather Icon</string>
+    <string name="weather_icon" translatable="false">Weather Icon</string>
 
     <!--Home Fragment-->
-    <string name="humidity_icon">Humidity Icon</string>
+    <string name="humidity_icon" translatable="false">Humidity Icon</string>
     <string name="humidity">Humidity</string>
-    <string name="pressure_icon">Pressure Icon</string>
-    <string name="pressure">Pressure</string>
-    <string name="wind_speed_icon">Wind Speed Icon</string>
-    <string name="wind_speed">Wind Speed</string>
-    <string name="cloud_icon">Cloud Icon</string>
-    <string name="clouds">Clouds</string>
-    <string name="humidity_unit">%</string>
-    <string name="pressure_unit">hPa</string>
-    <string name="cloud_unit">%</string>
+    <string name="pressure_icon" translatable="false">Pressure Icon</string>
+    <string name="pressure" translatable="false">Pressure</string>
+    <string name="wind_speed_icon" translatable="false">Wind Speed Icon</string>
+    <string name="wind_speed" translatable="false">Wind Speed</string>
+    <string name="cloud_icon" translatable="false">Cloud Icon</string>
+    <string name="clouds" translatable="false">Clouds</string>
+    <string name="humidity_unit" translatable="false">%</string>
+    <string name="pressure_unit" translatable="false">hPa</string>
+    <string name="cloud_unit" translatable="false">%</string>
 
     <!--Map-->
-    <string name="confirm">Confirm Location</string>
+    <string name="confirm" translatable="false">Confirm Location</string>
 
     <!-- Main-->
-    <string name="permission_denied">Permission Denied! \n We need Location Permission to get your location</string>
-    <string name="allow_permission">Allow Permission</string>
+    <string name="permission_denied" translatable="false">Permission Denied! \n We need Location Permission to get your location</string>
+    <string name="allow_permission" translatable="false">Allow Permission</string>
 
     <!--Alert-->
-    <string name="add_alert">Add Alert</string>
-    <string name="add_fav">Add Favorite</string>
-    <string name="delete_fav">Delete Favorite</string>
-    <string name="delete_alert">Delete Alert</string>
-    <string name="alert_screen_item">Shown Alarm of Alert on screen</string>
+    <string name="add_alert" translatable="false">Add Alert</string>
+    <string name="add_fav" translatable="false">Add Favorite</string>
+    <string name="delete_fav" translatable="false">Delete Favorite</string>
+    <string name="delete_alert" translatable="false">Delete Alert</string>
+    <string name="alert_screen_item" translatable="false">Shown Alarm of Alert on screen</string>
+
+
+    <!--Settings-->
+
+    <string name="location_preferences" translatable="false">Location Efficiency</string>
+    <string name="get_location_by_gps" translatable="false">Retrieve Location via GPS</string>
+    <string name="enable_to_get_location_automatically_using_gps" translatable="false">Enable automatic location retrieval using GPS</string>
+    <string name="choose_location_from_map" translatable="false">Select Location from Map</string>
+    <string name="tap_to_choose_a_specific_location_from_the_map" translatable="false">Tap to select a precise location on the map</string>
+    <string name="temperature_unit_preferences" translatable="false">Temperature Unit Efficiency</string>
+    <string name="temperature_unit" translatable="false">Temperature Unit</string>
+    <string name="choose_your_preferred_temperature_unit" translatable="false">Select your desired temperature</string>
+    <string name="wind_speed_unit" translatable="false">Wind Speed Unit</string>
+    <string name="choose_your_preferred_wind_speed_unit" translatable="false">Select your desired wind speed unit</string>
+    <string name="language_preferences" translatable="false">Language Efficiency</string>
+    <string name="language" translatable="false">Language</string>
+    <string name="choose_your_preferred_language" translatable="false">Select your desired language</string>
+
+
 
 </resources>
