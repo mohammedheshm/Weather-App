@@ -1,55 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <PreferenceCategory
+        android:layout="@layout/location_preferences_item"
+        android:icon="@drawable/locaiconpr"
         android:title="@string/location_preferences">
 
-        <SwitchPreference
-            android:key="location_gps"
-            android:title="@string/get_location_by_gps"
-            android:summary="@string/enable_to_get_location_automatically_using_gps" />
-
         <Preference
+            android:layout="@layout/choose_location_prefrences_item"
             android:key="location_map"
-            android:title="@string/choose_location_from_map"
-            android:summary="@string/tap_to_choose_a_specific_location_from_the_map" />
+            android:summary="@string/tap_to_choose_a_specific_location_from_the_map"
+            android:title="@string/choose_location_from_map" />
+
+
+        <SwitchPreference
+            android:layout="@layout/location_gps_item"
+            android:key="location_gps"
+            android:summary="@string/enable_to_get_location_automatically_using_gps"
+            android:title="@string/get_location_by_gps" />
+
 
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:layout="@layout/temperature_unit_preferences_item"
+        android:icon="@drawable/tempiconpref"
         android:title="@string/temperature_unit_preferences">
 
 
         <ListPreference
-            android:key="temp_unit"
-            android:title="@string/temperature_unit"
-            android:summary="@string/choose_your_preferred_temperature_unit"
+            android:layout="@layout/temperature_unit_item"
+            android:defaultValue="celsius"
             android:entries="@array/temp_unit_entries"
             android:entryValues="@array/temp_unit_values"
-            android:defaultValue="celsius" />
+            android:key="temp_unit"
+            android:summary="@string/choose_your_preferred_temperature_unit"
+            android:title="@string/temperature_unit" />
 
         <ListPreference
-            android:key="wind_unit"
-            android:title="@string/wind_speed_unit"
-            android:summary="@string/choose_your_preferred_wind_speed_unit"
+            android:layout="@layout/wind_speed_unit_item"
+            android:defaultValue="meters_per_second"
             android:entries="@array/wind_unit_entries"
             android:entryValues="@array/wind_unit_values"
-            android:defaultValue="meters_per_second" />
+            android:key="wind_unit"
+            android:summary="@string/choose_your_preferred_wind_speed_unit"
+            android:title="@string/wind_speed_unit" />
 
     </PreferenceCategory>
 
 
     <PreferenceCategory
+        android:layout="@layout/language_preferences_item"
+        android:icon="@drawable/gpsiconpref"
         android:title="@string/language_preferences">
 
 
         <ListPreference
-            android:key="language"
-            android:title="@string/language"
-            android:summary="@string/choose_your_preferred_language"
+            android:layout="@layout/language_pre_item"
+            android:defaultValue="english"
             android:entries="@array/language_entries"
             android:entryValues="@array/language_values"
-            android:defaultValue="english" />
+            android:key="language"
+            android:summary="@string/choose_your_preferred_language"
+            android:title="@string/language" />
 
     </PreferenceCategory>
 

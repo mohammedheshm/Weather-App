@@ -55,9 +55,9 @@
 
     <string name="location_preferences" translatable="false">Location Efficiency</string>
     <string name="get_location_by_gps" translatable="false">Retrieve Location via GPS</string>
-    <string name="enable_to_get_location_automatically_using_gps" translatable="false">Enable automatic location retrieval using GPS</string>
+    <string name="enable_to_get_location_automatically_using_gps" translatable="false">Enable automatic GPS location </string>
     <string name="choose_location_from_map" translatable="false">Select Location from Map</string>
-    <string name="tap_to_choose_a_specific_location_from_the_map" translatable="false">Tap to select a precise location on the map</string>
+    <string name="tap_to_choose_a_specific_location_from_the_map" translatable="false">Tap to select a location on the map</string>
     <string name="temperature_unit_preferences" translatable="false">Temperature Unit Efficiency</string>
     <string name="temperature_unit" translatable="false">Temperature Unit</string>
     <string name="choose_your_preferred_temperature_unit" translatable="false">Select your desired temperature</string>
