@@ -98,14 +98,21 @@ class FavoriteFragment : Fragment(), OnFavoriteItemClick {
                 favoriteAdapter.submitList(favoriteWeatherList)
 
 
+
                 // Update visibility based on the list size
                 if (favoriteWeatherList.isEmpty()) {
                     binding.imgEmptyState.visibility = View.VISIBLE
                     binding.rvFavorites.visibility = View.GONE
+                    binding.tvFavoritePlaceholderText1.visibility = View.VISIBLE
+                    binding.tvFavoritePlaceholderText2.visibility = View.VISIBLE
                 } else {
                     binding.imgEmptyState.visibility = View.GONE
                     binding.rvFavorites.visibility = View.VISIBLE
+                    binding.tvFavoritePlaceholderText1.visibility = View.GONE
+                    binding.tvFavoritePlaceholderText2.visibility = View.GONE
                 }
+
+
             }
         }
 

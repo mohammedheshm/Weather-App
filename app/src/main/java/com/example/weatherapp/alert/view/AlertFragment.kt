@@ -156,13 +156,18 @@ class AlertFragment : Fragment(), DatePickerDialog.OnDateSetListener,
 
     }
 
+
     private fun updatePlaceholderVisibility(alerts: List<Alert>) {
         if (alerts.isEmpty()) {
             placeholderImageView.visibility = View.VISIBLE
             binding.rvAlerts.visibility = View.GONE
+            binding.tvPlaceholderText1.visibility = View.VISIBLE
+            binding.tvPlaceholderText2.visibility = View.VISIBLE
         } else {
             placeholderImageView.visibility = View.GONE
             binding.rvAlerts.visibility = View.VISIBLE
+            binding.tvPlaceholderText1.visibility = View.GONE
+            binding.tvPlaceholderText2.visibility = View.GONE
         }
     }
 

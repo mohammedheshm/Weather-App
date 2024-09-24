@@ -30,17 +30,49 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="30sp" />
 
+
     <ImageView
         android:id="@+id/img_empty_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/favplacholderimgg"
+        android:src="@drawable/favplaceholder"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/fab_add_fav"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.442" />
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/tv_favorite_placeholder_text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No favorite locations."
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/img_empty_state"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Second descriptive TextView -->
+    <TextView
+        android:id="@+id/tv_favorite_placeholder_text_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tap the + button to add a favorite location."
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/tv_favorite_placeholder_text_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
 
 
     <ProgressBar

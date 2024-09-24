@@ -17,16 +17,51 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/alert_item" />
 
+
+    <!-- First descriptive TextView -->
+
+    <!-- Second descriptive TextView -->
+
     <ImageView
         android:id="@+id/iv_placeholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/placeholderimg"
+        android:layout_marginTop="252dp"
+        android:src="@drawable/alertplaceholder"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/tv_placeholder_text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="No alerts available."
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_placeholder" />
+
+    <TextView
+        android:id="@+id/tv_placeholder_text_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tap the + button to add a new alert."
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/tv_placeholder_text_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
