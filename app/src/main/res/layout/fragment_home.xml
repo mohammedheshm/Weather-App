@@ -29,12 +29,12 @@
 
 
                 <androidx.cardview.widget.CardView
+                    android:backgroundTint="@color/base_color_two"
                     android:id="@+id/cv_current_weather"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:backgroundTint="@color/base_color_two"
-                    app:cardCornerRadius="12dp"
+                    app:cardCornerRadius="24dp"
                     app:layout_constraintBottom_toTopOf="@id/rv_hourly"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -138,6 +138,8 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.cardview.widget.CardView
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp"
                         android:id="@+id/cv_details"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -315,12 +317,12 @@
 
     <ProgressBar
 
-        android:secondaryProgressTint="@color/white"
-        android:indeterminateTint="@color/white"
         android:id="@+id/progress_Bar"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:indeterminateTint="@color/white"
         android:progressTint="@color/base_color_two"
+        android:secondaryProgressTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

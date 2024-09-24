@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_marginTop="8dp"
-    app:cardCornerRadius="12dp">
+    app:cardCornerRadius="45dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginStart="70dp"
+            android:layout_marginStart="40dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -42,9 +42,9 @@
 
             <ImageView
                 android:id="@+id/iv_icon_daily"
-                android:layout_width="70dp"
+                android:layout_width="60dp"
                 android:layout_height="70dp"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="40dp"
                 android:contentDescription="@string/weather_icon"
                 tools:src="@drawable/weathericon" />
 
