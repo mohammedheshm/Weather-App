@@ -6,14 +6,24 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.graphics.PixelFormat
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.os.Build
 import android.os.IBinder
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.View
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +49,8 @@ import kotlinx.coroutines.withContext
 class AlarmAndNotificationService : Service() {
 
     private val TAG = "DialogService"
-
+    private lateinit var soundPool: SoundPool
+    private var soundId: Int = 0
     private lateinit var windowManager: WindowManager
     private lateinit var floatingView: ConstraintLayout
     private var desc: String? = ""
@@ -81,6 +92,7 @@ class AlarmAndNotificationService : Service() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
         super.onCreate()
+        initSoundPool()  // Initialize SoundPool
 
         _repo = WeatherRepoImpl.getInstance(
             WeatherRemoteDataSourceImpl(),
@@ -153,17 +165,38 @@ class AlarmAndNotificationService : Service() {
 
     }
 
-    private fun showAlarmDialog() {
 
-        floatingView =
-            LayoutInflater.from(this)
-                .inflate(R.layout.alert_screen_item, null) as ConstraintLayout
+    private fun initSoundPool() {
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_MEDIA)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(1)
+            .setAudioAttributes(audioAttributes)
+            .build()
+
+        // Load the sound
+        soundId = soundPool.load(this, R.raw.alert, 1) // Ensure this points to your sound file
+    }
+
+
+    private fun playAlarmSound() {
+        soundPool.play(soundId, 1f, 1f, 1, 0, 1f)
+    }
+
+
+    private fun showAlarmDialog() {
+        floatingView = LayoutInflater.from(this)
+            .inflate(R.layout.alert_screen_item, null) as ConstraintLayout
+
         tvDesc = floatingView.findViewById<TextView>(R.id.textView)
-        _repo = WeatherRepoImpl.getInstance(
+
+        val _repo = WeatherRepoImpl.getInstance(
             WeatherRemoteDataSourceImpl.getInstance(),
             WeatherLocalDataSourceImpl(this)
         )
-
 
         CoroutineScope(Dispatchers.Main).launch {
             _repo.getCurrentWeatherFromRemote(
@@ -171,44 +204,60 @@ class AlarmAndNotificationService : Service() {
                 longitudeFromPrefs.toString(),
                 languageFromPrefs,
                 tempUnitFromPrefs.toString()
-            )
-                .collectLatest { result ->
-                    val greatWeather = "Enjoy The Nice Weather!"
-                    desc =
-                        if (result.alerts.isNullOrEmpty() || result.alerts?.get(0)?.description.isNullOrEmpty()) {
-                            greatWeather
-                        } else {
-                            result.alerts?.get(0)?.description ?: greatWeather
-                        }
-                    tvDesc.text = desc
-                    Log.d(TAG, "description: $desc ")
-                }
-        }
+            ).collectLatest { result ->
+                val greatWeather = "Enjoy The Nice Weather!"
+                desc =
+                    if (result.alerts.isNullOrEmpty() || result.alerts?.get(0)?.description.isNullOrEmpty()) {
+                        greatWeather
+                    } else {
+                        result.alerts?.get(0)?.description ?: greatWeather
+                    }
 
+                tvDesc.text = desc + " " // Set text to TextView
+
+                // Now create a clickable button inside the TextView
+                val buttonText = "Dismiss"
+                val spannable = SpannableString("$desc $buttonText")
+                val buttonSpan = object : ClickableSpan() {
+                    override fun onClick(widget: View) {
+                        // Dismiss the alert when button is clicked
+                        windowManager.removeView(floatingView)
+                    }
+
+                    override fun updateDrawState(ds: TextPaint) {
+                        super.updateDrawState(ds)
+                        ds.isUnderlineText = true // Optional: underline the text
+                        ds.color = Color.BLUE // Optional: change text color
+                    }
+                }
+
+                spannable.setSpan(
+                    buttonSpan,
+                    spannable.length - buttonText.length,
+                    spannable.length,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+                tvDesc.text = spannable
+                tvDesc.movementMethod = LinkMovementMethod.getInstance() // Make TextView clickable
+
+                // Play the alarm sound when the dialog is shown
+                playAlarmSound()
+            }
+        }
 
         val params = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
             PixelFormat.TRANSLUCENT
         )
 
         windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
         windowManager.addView(floatingView, params)
 
-
-        floatingView.viewTreeObserver.addOnGlobalLayoutListener {
-            floatingView.viewTreeObserver.removeOnGlobalLayoutListener {}
-
-
-            val xPos = (getScreenWidth() - floatingView.width) / 2
-            val yPos = (getScreenHeight() - floatingView.height) / 2
-
-            params.x = xPos
-            params.y = yPos
-        }
-
+        // The touch listener can be left out if you want to dismiss it only with the button
         floatingView.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 stopSelf()
@@ -216,23 +265,8 @@ class AlarmAndNotificationService : Service() {
             }
             false
         }
-
     }
 
-    private fun getScreenWidth(): Int {
-
-        val displayMetrics = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(displayMetrics)
-        val width = displayMetrics.widthPixels
-        return width
-    }
-
-    private fun getScreenHeight(): Int {
-        val displayMetrics = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(displayMetrics)
-        val height = displayMetrics.widthPixels
-        return height
-    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -240,6 +274,9 @@ class AlarmAndNotificationService : Service() {
             windowManager.removeView(floatingView)
 
         }
+
+        soundPool.release() // Release SoundPool resources
+
     }
 
 }

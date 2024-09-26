@@ -18,5 +18,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/alert_screen_item" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
