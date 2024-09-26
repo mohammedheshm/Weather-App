@@ -98,7 +98,6 @@ class FavoriteFragment : Fragment(), OnFavoriteItemClick {
                 favoriteAdapter.submitList(favoriteWeatherList)
 
 
-
                 // Update visibility based on the list size
                 if (favoriteWeatherList.isEmpty()) {
                     binding.imgEmptyState.visibility = View.VISIBLE
@@ -137,7 +136,7 @@ class FavoriteFragment : Fragment(), OnFavoriteItemClick {
         val buttonOk: Button = dialogView.findViewById(R.id.button_ok)
         val buttonCancel: Button = dialogView.findViewById(R.id.button_cancel)
 
-        dialogTitle.text = "Are you sure delete this item"
+        dialogTitle.text = getString(R.string.dialog_delete)
 
         val dialog = dialogBuilder.create()
 

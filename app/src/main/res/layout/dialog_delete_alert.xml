@@ -14,7 +14,7 @@
         android:padding="16dp">
 
         <TextView
-            android:text="Are you sure to delete this item?"
+            android:text="@string/dialog_delete"
             android:id="@+id/dialog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/base_color_three"
                 android:padding="12dp"
-                android:text="OK"
+                android:text="@string/ok_delete"
                 android:textColor="@color/base_color_one"
                 android:textStyle="bold" />
 
@@ -47,7 +47,7 @@
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/base_color_one"
                 android:padding="12dp"
-                android:text="Cancel"
+                android:text="@string/cancel_delete"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 

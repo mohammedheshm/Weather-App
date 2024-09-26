@@ -14,6 +14,7 @@
         android:padding="16dp">
 
         <TextView
+            android:text="@string/dialog_delete"
             android:id="@+id/dialog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/base_color_three"
-                android:text="OK"
+                android:text="@string/ok_delete"
                 android:textColor="@color/base_color_one"
                 android:textStyle="bold"
                 android:padding="12dp" />
@@ -50,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/base_color_one"
-                android:text="Cancel"
+                android:text="@string/cancel_delete"
                 android:textColor="@color/white"
                 android:padding="12dp" />
         </LinearLayout>

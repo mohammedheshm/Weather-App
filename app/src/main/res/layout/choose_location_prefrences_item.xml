@@ -21,6 +21,7 @@ android:layout_height="wrap_content"
 android:orientation="vertical">
 
 <TextView
+    android:drawableRight="@drawable/baseline_fmd_good_24"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"

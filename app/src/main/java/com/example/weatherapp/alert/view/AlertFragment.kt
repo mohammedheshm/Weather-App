@@ -230,8 +230,8 @@ class AlertFragment : Fragment(), DatePickerDialog.OnDateSetListener,
         val builder = AlertDialog.Builder(requireContext())
             .setView(dialogView)
 
-        dialogView.findViewById<TextView>(R.id.dialog_title).text =
-            "Are you sure to delete this item ?"
+        dialogView.findViewById<TextView>(R.id.dialog_title).text =getString(R.string.dialog_delete)
+
 
         val dialog = builder.create()
 

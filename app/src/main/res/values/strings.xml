@@ -45,11 +45,18 @@
 
     <!--Alert-->
     <string name="add_alert" translatable="false">Add Alert</string>
-    <string name="add_fav" translatable="false">Add Favorite</string>
-    <string name="delete_fav" translatable="false">Delete Favorite</string>
     <string name="delete_alert" translatable="false">Delete Alert</string>
     <string name="alert_screen_item" translatable="false">Shown Alarm of Alert on screen</string>
 
+    <string name="alert_placeholder1" translatable="false">No alerts available.</string>
+    <string name="alert_placeholder2" translatable="false">Tap the + button to add a new alert.</string>
+
+    <!--Favorite-->
+    <string name="add_fav" translatable="false">Add Favorite</string>
+    <string name="delete_fav" translatable="false">Delete Favorite</string>
+
+    <string name="fav_placeholder1" translatable="false">No favorite locations.</string>
+    <string name="fav_placeholder2" translatable="false">Tap the + button to add a favorite location.</string>
 
     <!--Settings-->
 
@@ -67,6 +74,11 @@
     <string name="language" translatable="false">Language</string>
     <string name="choose_your_preferred_language" translatable="false">Select your desired language</string>
 
+
+    <!--Dialog-->
+    <string name="dialog_delete" translatable="false">Are you sure to delete this item?</string>
+    <string name="ok_delete" translatable="false">OK</string>
+    <string name="cancel_delete" translatable="false">Cancel</string>
 
 
 </resources>
