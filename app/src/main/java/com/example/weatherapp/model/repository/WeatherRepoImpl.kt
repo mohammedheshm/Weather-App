@@ -68,15 +68,12 @@ class WeatherRepoImpl constructor(
 
             try {
                 weatherLocalDataSource.insertWeatherResponse(weatherResponseFromRemote)
-                //Log.d(TAG, "getCurrentWeatherFromRemote: $weatherResponseFromRemote")
             } catch (exception: Exception) {
 
-                //Log.d(TAG, "Exception: $exception ")
 
             }
 
         } else {
-            //Log.d(TAG, "getCurrentWeatherFromRemote: Null")
         }
         emit(weatherResponseFromRemote)
 

@@ -5,10 +5,12 @@ import com.example.weatherapp.model.Alert
 import com.example.weatherapp.model.FavoriteWeather
 import com.example.weatherapp.model.WeatherResponse
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 
 class FakeLocalDataSource : WeatherLocalDataSource {
+
     private val weatherResponses = mutableListOf<WeatherResponse>()
     private val alerts = mutableListOf<Alert>()
     private val favoriteWeathers = mutableListOf<FavoriteWeather>()
