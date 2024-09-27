@@ -36,7 +36,7 @@ class AlertViewModelTest {
     }
 
 
-    // Test Function of getAllAlerts
+    // 1- Test Function of getAllAlerts
     @Test
     fun getAllAlerts_multipleAlerts_allAlertsRetrieved() = runTest {
 
@@ -60,7 +60,7 @@ class AlertViewModelTest {
     }
 
 
-    // Test Function of setAllAlertsLocation
+    // 2- Test Function of setAllAlertsLocation
     @Test
     fun setAlertLocation_validLocation_alertWeatherIsLoading() {
 
@@ -78,7 +78,7 @@ class AlertViewModelTest {
     }
 
 
-    // Test Function of getAlertWeather
+    // 3- Test Function of getAlertWeather
     @Test
     fun getAlertWeather_setLocation_alertOfThisLocation() {
 
@@ -95,7 +95,7 @@ class AlertViewModelTest {
 
     }
 
-
+    // 4- Test Function of deleteAlert From database
     @Test
     fun deleteAlert_existingAlert_alertRemoved() = runTest {
 
