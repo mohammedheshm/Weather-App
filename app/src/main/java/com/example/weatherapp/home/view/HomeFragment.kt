@@ -183,12 +183,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupDataObserver() {
-
         if (PermissionChecksUtil.checkConnection(requireContext())) {
             viewLifecycleOwner.lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.RESUMED) {
                     homeViewModel.currentWeather.collectLatest { result ->
-
                         when (result) {
                             is ApiState.Loading -> {
                                 binding.progressBar.visibility = View.VISIBLE
@@ -197,33 +195,29 @@ class HomeFragment : Fragment() {
                             is ApiState.Success -> {
                                 binding.progressBar.visibility = View.GONE
                                 updateData(result.data)
-                                homeHourlyAdapter.submitList(result.data.hourly)
-                                homeDailyAdapter.submitList(result.data.daily)
 
-                                when (result.data.current.weather[0].main) {
-                                    "Rain", "shower rain" -> binding.weatherViewHome.setWeatherData(
-                                        PrecipType.RAIN
-                                    )
+                                // Check if hourly and daily lists are not empty before submitting
+                                homeHourlyAdapter.submitList(result.data.hourly.takeIf { it.isNotEmpty() } ?: emptyList())
+                                homeDailyAdapter.submitList(result.data.daily.takeIf { it.isNotEmpty() } ?: emptyList())
 
-                                    "Snow" -> binding.weatherViewHome.setWeatherData(PrecipType.SNOW)
-                                    "Clear" -> binding.weatherViewHome.setWeatherData(
-                                        PrecipType.CLEAR
-                                    )
+                                if (result.data.current.weather.isNotEmpty()) {
+                                    when (result.data.current.weather[0].main) {
+                                        "Rain", "shower rain" -> binding.weatherViewHome.setWeatherData(PrecipType.RAIN)
+                                        "Snow" -> binding.weatherViewHome.setWeatherData(PrecipType.SNOW)
+                                        "Clear" -> binding.weatherViewHome.setWeatherData(PrecipType.CLEAR)
+                                    }
+                                } else {
+                                    // Handle empty weather case, e.g., show a default message or icon
+                                    binding.weatherViewHome.setWeatherData(PrecipType.CUSTOM) // assuming you have a default type
                                 }
                             }
 
                             is ApiState.Failure -> {
                                 binding.progressBar.visibility = View.GONE
                                 Log.d(TAG, "Exception is: ${result.msg}")
-                                Toast.makeText(
-                                    requireActivity(),
-                                    result.msg.toString(),
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
+                                Toast.makeText(requireActivity(), result.msg.toString(), Toast.LENGTH_SHORT).show()
                             }
                         }
-
                     }
                 }
             }
@@ -233,26 +227,22 @@ class HomeFragment : Fragment() {
                     homeViewModel.currentWeatherFromDatabase.collectLatest { result ->
                         binding.progressBar.visibility = View.GONE
                         updateData(result)
-                        homeHourlyAdapter.submitList(result.hourly)
-                        homeDailyAdapter.submitList(result.daily)
 
-                        when (result.current.weather[0].main) {
-                            "Rain", "shower rain" -> binding.weatherViewHome.setWeatherData(
-                                PrecipType.RAIN
-                            )
-
-                            "Snow" -> binding.weatherViewHome.setWeatherData(PrecipType.SNOW)
-                            "Clear" -> binding.weatherViewHome.setWeatherData(
-                                PrecipType.CLEAR
-                            )
+                        // Check if current weather list is not empty before accessing it
+                        if (result.current.weather.isNotEmpty()) {
+                            when (result.current.weather[0].main) {
+                                "Rain", "shower rain" -> binding.weatherViewHome.setWeatherData(PrecipType.RAIN)
+                                "Snow" -> binding.weatherViewHome.setWeatherData(PrecipType.SNOW)
+                                "Clear" -> binding.weatherViewHome.setWeatherData(PrecipType.CLEAR)
+                            }
+                        } else {
+                            // Handle empty weather case, e.g., show a default message or icon
+                            binding.weatherViewHome.setWeatherData(PrecipType.CUSTOM) // assuming you have a default type
                         }
-
                     }
                 }
-
             }
         }
-
     }
 
 
@@ -297,7 +287,14 @@ class HomeFragment : Fragment() {
     private fun updateData(weatherResponse: WeatherResponse) {
         val dateTime = weatherResponse.current.dt
         val tempDegree = weatherResponse.current.temp
-        val main = weatherResponse.current.weather[0].main
+
+        // Check if the weather list is not empty before accessing it
+        val main = if (weatherResponse.current.weather.isNotEmpty()) {
+            weatherResponse.current.weather[0].main
+        } else {
+            "Unknown"
+        }
+
         val humidity = weatherResponse.current.humidity
         val windSpeed = weatherResponse.current.wind_speed
         val pressure = weatherResponse.current.pressure
@@ -346,7 +343,7 @@ class HomeFragment : Fragment() {
 
             // Fetch and display 5-day forecast
             val forecastList = weatherResponse.daily.take(5) // Get the first 5 days of the forecast
-            updateForecastAdapter(forecastList)
+            updateForecastAdapter(forecastList.takeIf { it.isNotEmpty() } ?: emptyList())
         }
     }
 
@@ -378,6 +375,5 @@ class HomeFragment : Fragment() {
     }
 
 }
-
 
 

@@ -224,45 +224,68 @@ class AlertFragment : Fragment(), DatePickerDialog.OnDateSetListener,
 
     }
 
+    fun convertTimeToMillis(date: String, time: String): Long {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+
+        val dateTimeString = "$date $time"
+
+        return dateFormat.parse(dateTimeString)?.time ?: 0L
+    }
+
+
     override fun deleteAlert(alert: Alert) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_delete_alert, null)
 
         val builder = AlertDialog.Builder(requireContext())
             .setView(dialogView)
 
-        dialogView.findViewById<TextView>(R.id.dialog_title).text =getString(R.string.dialog_delete)
-
+        dialogView.findViewById<TextView>(R.id.dialog_title).text = getString(R.string.dialog_delete)
 
         val dialog = builder.create()
 
         dialogView.findViewById<Button>(R.id.button_ok).setOnClickListener {
             lifecycleScope.launch {
-                alertViewModel.deleteAlert(alert)
+                try {
+                    // Step 1: Delete the alert from the database
+                    alertViewModel.deleteAlert(alert)
 
-                val timeInMillis = getDateTimeCalender().toInt()
-                pendingIntent = PendingIntent.getBroadcast(
-                    requireContext(),
-                    timeInMillis,
-                    broadcastIntent,
-                    PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
-                )
-                Log.d(TAG, "deleteAlert id: $timeInMillis ")
-                alarmManager.cancel(pendingIntent)
+                    // Step 2: Convert the date and time from the alert to milliseconds
+                    val timeInMillis = convertTimeToMillis(alert.date, alert.time)
+
+                    // Step 3: Log the request code for debugging
+                    Log.d(TAG, "Attempting to cancel alarm with request code: ${timeInMillis.toInt()}")
+
+                    // Step 4: Create a PendingIntent to check if it exists
+                    val pendingIntent = PendingIntent.getBroadcast(
+                        requireContext(),
+                        timeInMillis.toInt(), // Ensure this matches the request code used when setting the alarm
+                        broadcastIntent,
+                        PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE // Use FLAG_NO_CREATE to check if it exists
+                    )
+
+                    // Step 5: Attempt to cancel the alarm if the PendingIntent exists
+                    if (pendingIntent != null) {
+                        alarmManager.cancel(pendingIntent)
+                        Log.d(TAG, "Alarm canceled for request code: ${timeInMillis.toInt()}")
+                    } else {
+                        Log.w(TAG, "PendingIntent does not exist; no alarm to cancel.")
+                    }
+
+                    Toast.makeText(context, "Alert deleted", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error deleting alert: ${e.message}")
+                    Toast.makeText(context, "Failed to delete alert", Toast.LENGTH_SHORT).show()
+                }
             }
-
-            Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show()
-            dialog.dismiss()
         }
 
         builder.setNegativeButton("Cancel") { dialogInterface, _ -> dialogInterface.dismiss() }
-
         dialog.show()
-
         dialogView.findViewById<Button>(R.id.button_cancel).setOnClickListener {
             dialog.cancel()
         }
-        dialog.show()
-
     }
 
 
